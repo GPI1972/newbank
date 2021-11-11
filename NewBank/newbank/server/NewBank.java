@@ -42,14 +42,26 @@ public class NewBank {
 		if(customers.containsKey(customer.getKey())) {
 			switch(request) {
 			case "SHOWMYACCOUNTS" : return showMyAccounts(customer);
+			case "NEWACCOUNT Main" : return newAccountMain(customer);
+			case "NEWACCOUNT Savings" : return newAccountSavings(customer);
 			default : return "FAIL";
 			}
 		}
 		return "FAIL";
 	}
-	
+
 	private String showMyAccounts(CustomerID customer) {
 		return (customers.get(customer.getKey())).accountsToString();
+	}
+	
+	private String newAccountMain(CustomerID customer) {
+		(customers.get(customer.getKey())).addAccount(new Account("\n"+"Main", 0.0));
+		return "SUCCESS";
+	}
+	
+	private String newAccountSavings(CustomerID customer) {
+		(customers.get(customer.getKey())).addAccount(new Account("\n"+"Savings", 0.0));
+		return "SUCCESS";
 	}
 
 }
