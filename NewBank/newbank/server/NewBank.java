@@ -1,5 +1,6 @@
 package newbank.server;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class NewBank {
@@ -44,7 +45,9 @@ public class NewBank {
 			case "SHOWMYACCOUNTS" : return showMyAccounts(customer);
 			case "NEWACCOUNT Main" : return newAccountMain(customer);
 			case "NEWACCOUNT Savings" : return newAccountSavings(customer);
-			default : return "FAIL";
+			case "MOVE Main to Savings" : return moveInstructions();
+			case "MOVE Savings to Main" : return moveInstructions();
+			case "DEPOSIT" : return depositInstructions();
 			}
 		}
 		return "FAIL";
@@ -63,5 +66,13 @@ public class NewBank {
 		(customers.get(customer.getKey())).addAccount(new Account("\n"+"Savings", 0.0));
 		return "SUCCESS";
 	}
-
+	
+	private String moveInstructions() {
+		return "Enter the amount you wish to move:";
+	}
+	
+	private String depositInstructions() {
+		return "Enter the amount you wish to deposit:";
+	}
+	
 }

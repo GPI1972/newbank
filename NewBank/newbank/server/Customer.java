@@ -21,4 +21,22 @@ public class Customer {
 	public void addAccount(Account account) {
 		accounts.add(account);		
 	}
+	
+	//function to get accounts array
+	public ArrayList<Account> getAccounts() {
+		return accounts;
+	}
+	
+	// function to move money between a customer's accounts
+	public boolean moveMoney(Account from, Account to, double amount) {
+		if (from.getBalance() >= amount){
+			from.removeMoney(amount);
+			to.addMoney(amount);
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
 }

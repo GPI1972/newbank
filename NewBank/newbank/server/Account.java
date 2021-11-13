@@ -14,4 +14,20 @@ public class Account {
 		return (accountName + ": " + openingBalance);
 	}
 
+	// getter function to get balance--maybe we should rename openingBalance to balance?
+	public double getBalance(){
+		return openingBalance;
+	}
+	
+	// function to add money to an account
+	public void addMoney(double amount){
+		openingBalance += amount;
+	}
+	
+	//function to remove money from an account
+	public void removeMoney(double amount){
+		openingBalance -= amount;
+	} 
+	
+
 }
