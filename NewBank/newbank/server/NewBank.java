@@ -2,6 +2,7 @@ package newbank.server;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class NewBank {
 	
@@ -40,11 +41,20 @@ public class NewBank {
 
 	// commands from the NewBank customer are processed in this method
 	public synchronized String processRequest(CustomerID customer, String request) {
-		if(customers.containsKey(customer.getKey())) {
-			switch(request) {
+		// split input into individual strings
+                Scanner scanner = new Scanner(request);
+                scanner.useDelimiter(" ");
+                ArrayList<String> commandLine = new ArrayList<>();
+                while (scanner.hasNext()){
+                    commandLine.add(scanner.next());
+                }
+                
+                if(customers.containsKey(customer.getKey())) {
+			switch(commandLine.get(0)) {
 			case "SHOWMYACCOUNTS" : return showMyAccounts(customer);
 			case "NEWACCOUNT Main" : return newAccountMain(customer);
 			case "NEWACCOUNT Savings" : return newAccountSavings(customer);
+                        //case "NEWACCOUNT" : return newAccount(customer, commandLine.get(1));
 			case "MOVE Main to Savings" : return moveInstructions();
 			case "MOVE Savings to Main" : return moveInstructions();
 			case "DEPOSIT" : return depositInstructions();
