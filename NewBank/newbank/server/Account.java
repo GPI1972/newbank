@@ -35,6 +35,4 @@ public class Account {
 			openingBalance -= amount;
 		}
 	} 
-	
-
 }
