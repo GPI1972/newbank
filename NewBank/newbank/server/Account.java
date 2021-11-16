@@ -19,6 +19,11 @@ public class Account {
 		return openingBalance;
 	}
 	
+	// getter function to get account name
+	public String getCustomer(){
+		return accountName;
+	}
+	
 	// function to add money to an account
 	public void addMoney(double amount){
 		openingBalance += amount;
@@ -26,7 +31,9 @@ public class Account {
 	
 	//function to remove money from an account
 	public void removeMoney(double amount){
-		openingBalance -= amount;
+		if(openingBalance >= amount) {
+			openingBalance -= amount;
+		}
 	} 
 	
 

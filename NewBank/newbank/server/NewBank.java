@@ -55,9 +55,8 @@ public class NewBank {
 			case "NEWACCOUNT Main" : return newAccountMain(customer);
 			case "NEWACCOUNT Savings" : return newAccountSavings(customer);
                         //case "NEWACCOUNT" : return newAccount(customer, commandLine.get(1));
-			case "MOVE Main to Savings" : return moveInstructions();
-			case "MOVE Savings to Main" : return moveInstructions();
-			case "DEPOSIT" : return depositInstructions();
+			// case "MOVE" : return move(customer, commandLine.get(1));
+			// case "DEPOSIT" : return deposit(customer, commandLine.get(1), commandLine.get(2));
 			}
 		}
 		return "FAIL";
@@ -77,12 +76,28 @@ public class NewBank {
 		return "SUCCESS";
 	}
 	
-	private String moveInstructions() {
-		return "Enter the amount you wish to move:";
+	/*
+	 * 
+	// move method that moves amount from one account to another
+	// *need to specify which account to move money from/to
+	// *need to work out how to access one particular account of a customer
+	private String move(CustomerID customer, String amountstr) {
+		double amount = Double.parseDouble(amountstr);
+		ArrayList<Account> accountsList = new ArrayList<>();
+		accountsList = (customers.get(customer.getKey())).getAccounts();
+		(customers.get(customer.getKey())).moveMoney(accountsList[0], accountsList[1], amount);
+		return "SUCCESS";
 	}
 	
-	private String depositInstructions() {
-		return "Enter the amount you wish to deposit:";
-	}
-	
+	// deposit method that deposits money in one account
+	// *need to specify which account to deposit money to
+	// *need to work out how to access one particular account of a customer
+	private String deposit(CustomerID customer, String accountstr, String amountstr) {
+		double amount = Double.parseDouble(amountstr);
+		ArrayList<Account> accountsList = new ArrayList<>();
+		accountsList = (customers.get(customer.getKey())).getAccounts();
+		accountList[0].addMoney(amount);
+		return "SUCCESS";	}
+	*
+	*/
 }
