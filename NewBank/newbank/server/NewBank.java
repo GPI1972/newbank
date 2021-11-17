@@ -8,6 +8,9 @@ public class NewBank {
 	
 	private static final NewBank bank = new NewBank();
 	private HashMap<String,Customer> customers;
+	private String amountToPay;
+	private double amount;
+	private Account openingBalance;
 	
 	private NewBank() {
 		customers = new HashMap<>();
@@ -54,7 +57,7 @@ public class NewBank {
 			case "SHOWMYACCOUNTS" : return showMyAccounts(customer);
 			case "NEWACCOUNT Main" : return newAccountMain(customer);
 			case "NEWACCOUNT Savings" : return newAccountSavings(customer);
-                        //case "NEWACCOUNT" : return newAccount(customer, commandLine.get(1));
+			case "PAY" : return payment(customer, openingBalance, commandLine.get(1), commandLine.get(2));
 			// case "MOVE" : return move(customer, commandLine.get(1));
 			// case "DEPOSIT" : return deposit(customer, commandLine.get(1), commandLine.get(2));
 			}
@@ -100,4 +103,13 @@ public class NewBank {
 		return "SUCCESS";	}
 	*
 	*/
+	
+	/* Method to pay custom person custom amount of money (i.e. "PAY Ruby 100").
+	 * Currently goes into infinite loop, more troubleshooting required to make it work. 
+	 */
+	private String payment(CustomerID customer, Account openingBalance, String name, String amountToPay) {
+		amount = Double.parseDouble(amountToPay);
+		(customers.get(customer.getKey())).makePayment(amount,openingBalance);
+		return "SUCCESS";	
+	}
 }

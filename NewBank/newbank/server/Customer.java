@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Customer {
 	
 	private ArrayList<Account> accounts;
+	private double balance;
 	
 	public Customer() {
 		accounts = new ArrayList<>();
@@ -39,4 +40,11 @@ public class Customer {
 		}
 	}
 	
+	/*function to make payment to some person/company
+	 * possibly to add code to pay into specific accounts in the future 
+	 */
+	public void makePayment(double amount, Account openingBalance) {
+		balance = openingBalance.getBalance();
+		balance -= amount; 		
+	}	
 }
