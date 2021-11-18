@@ -46,5 +46,31 @@ public class Customer {
 	public void makePayment(double amount, Account openingBalance) {
 		balance = openingBalance.getBalance();
 		balance -= amount; 		
-	}	
+	}
+        
+        /*
+          Function to withdraw money from a specific account
+        */
+        public String withdrawMoney(String account, String amount){
+                double withdrawal = Double.parseDouble(amount);
+                String infoMessage = "";
+                
+                // iterate through all the customer's accounts
+                // if account found AND funds avaialble then withdraw amount
+                for(Account a : accounts) {
+                    if (account.equalsIgnoreCase(a.getCustomer())){
+                      if(a.removeMoney(withdrawal)){
+                        infoMessage = "Successfully withdrawn " + amount + " from account " + a.getCustomer();
+                      }
+                      else{
+                        infoMessage = "Insufficient funds. Please check account balance.";
+                      }
+                    }
+                    else {
+                      infoMessage = "Account not found.";
+                    }
+		}
+                
+                return infoMessage;
+        }
 }
