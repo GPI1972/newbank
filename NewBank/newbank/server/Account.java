@@ -30,9 +30,11 @@ public class Account {
 	}
 	
 	//function to remove money from an account
-	public void removeMoney(double amount){
+	public boolean removeMoney(double amount){
 		if(openingBalance >= amount) {
 			openingBalance -= amount;
+                        return true;
 		}
+                return false;
 	} 
 }

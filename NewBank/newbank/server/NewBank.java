@@ -58,6 +58,7 @@ public class NewBank {
 			case "NEWACCOUNT Main" : return newAccountMain(customer);
 			case "NEWACCOUNT Savings" : return newAccountSavings(customer);
 			case "PAY" : return payment(customer, openingBalance, commandLine.get(1), commandLine.get(2));
+                        case "WITHDRAW" : return withdraw(customer, commandLine.get(1), commandLine.get(2));
 			// case "MOVE" : return move(customer, commandLine.get(1));
 			// case "DEPOSIT" : return deposit(customer, commandLine.get(1), commandLine.get(2));
 			}
@@ -111,5 +112,12 @@ public class NewBank {
 		amount = Double.parseDouble(amountToPay);
 		(customers.get(customer.getKey())).makePayment(amount,openingBalance);
 		return "SUCCESS";	
+	}
+        
+        /*
+          Method to withdraw an amount of money from the customer's account
+        */
+        private String withdraw(CustomerID customer, String account, String amount) {
+                return customers.get(customer.getKey()).withdrawMoney(account, amount);
 	}
 }
