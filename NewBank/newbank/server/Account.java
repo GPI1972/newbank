@@ -10,10 +10,13 @@ public class Account {
 		this.openingBalance = openingBalance;
 	}
 	
+	public String getAccountName() {
+		return accountName;
+	}
 	public String toString() {
 		return (accountName + ": " + openingBalance);
 	}
-
+	
 	// getter function to get balance--maybe we should rename openingBalance to balance?
 	public double getBalance(){
 		return openingBalance;
