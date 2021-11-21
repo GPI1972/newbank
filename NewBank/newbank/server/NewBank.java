@@ -52,20 +52,25 @@ public class NewBank {
                 while (scanner.hasNext()){
                     commandLine.add(scanner.next());
                 }
+                try{
+                    if(customers.containsKey(customer.getKey())) {
+                            switch(commandLine.get(0)) {
+                            case "SHOWMYACCOUNTS" : return showMyAccounts(customer);
+                            case "NEWACCOUNT Main" : return newAccountMain(customer);
+                            case "NEWACCOUNT Savings" : return newAccountSavings(customer);
+                            case "PAY" : return payment(customer, openingBalance, commandLine.get(1), commandLine.get(2));
+                            case "WITHDRAW" : return withdraw(customer, commandLine.get(1), commandLine.get(2));
+                            case "CLOSEACCOUNT" : return closeAccount(customer, commandLine.get(1));
+                            // case "MOVE" : return move(customer, commandLine.get(1));
+                            // case "DEPOSIT" : return deposit(customer, commandLine.get(1), commandLine.get(2));
+                            }
+                    }
+                }
+                catch(Exception e){
+                    return "Incorrect command or missing parameters. Please try again.";
+                }
                 
-                if(customers.containsKey(customer.getKey())) {
-			switch(commandLine.get(0)) {
-			case "SHOWMYACCOUNTS" : return showMyAccounts(customer);
-			case "NEWACCOUNT Main" : return newAccountMain(customer);
-			case "NEWACCOUNT Savings" : return newAccountSavings(customer);
-			case "PAY" : return payment(customer, openingBalance, commandLine.get(1), commandLine.get(2));
-            case "WITHDRAW" : return withdraw(customer, commandLine.get(1), commandLine.get(2));
-            case "CLOSEACCOUNT" : return closeAccount(customer, commandLine.get(1));
-			// case "MOVE" : return move(customer, commandLine.get(1));
-			// case "DEPOSIT" : return deposit(customer, commandLine.get(1), commandLine.get(2));
-			}
-		}
-		return "FAIL";
+		            return "FAIL";
 	}
 
 	private String showMyAccounts(CustomerID customer) {
