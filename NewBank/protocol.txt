@@ -17,3 +17,21 @@ Returns SUCCESS or FAIL
 PAY <Person/Company> <Ammount>
 e.g. PAY John 100
 Returns SUCCESS or FAIL
+
+DEPOSIT <Account> <Amount> 
+e.g. DEPOSIT Main 100 
+Returns SUCCESS or FAIL
+
+WITHRDRAW <Account> <Amount>
+e.g. WITHDRAW 100
+Returns "Successfully withdrawn <Amount> from account <Account>;
+or 
+"Insufficient funds. Please check account balance."
+or 
+"Account not found."
+
+CLOSEACCOUNT <Name>
+e.g CLOSEACCOUNT Savings
+Returns "Success. The account <Name> was closed."
+or
+"The account balance should be 0. Please withdraw/transfer from the account any existing credits or deposit/transfer to the account any existing debts."
