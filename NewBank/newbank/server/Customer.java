@@ -18,7 +18,7 @@ public class Customer {
 		}
 		return s;
 	}
-
+	
 	public void addAccount(Account account) {
 		accounts.add(account);		
 	}
@@ -73,4 +73,22 @@ public class Customer {
                 
                 return infoMessage;
         }
+        
+        
+        public String accountEmpty(String account) {
+        	String message = "This account does not exist.";
+        		for (Account a : accounts) {
+        			if (account.equalsIgnoreCase(a.getAccountName())) {
+        				if (a.getBalance() == 0.0) {
+        					accounts.remove(a);
+        					return "Success. The account \"" + a.getAccountName() + "\" was closed.";
+        				} else {
+        					return "The account balance should be 0. Please withdraw/transfer from the account any existing credits or deposit/transfer to the account any existing debts.";
+        				}
+        			}
+        			}
+        			
+        		return message;
+        		}
+        
 }

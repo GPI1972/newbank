@@ -20,6 +20,7 @@ public class NewBank {
 	private void addTestData() {
 		Customer bhagy = new Customer();
 		bhagy.addAccount(new Account("Main", 1000.0));
+		bhagy.addAccount(new Account("Savings", 200.0));
 		customers.put("Bhagy", bhagy);
 		
 		Customer christina = new Customer();
@@ -59,6 +60,7 @@ public class NewBank {
                             case "NEWACCOUNT Savings" : return newAccountSavings(customer);
                             case "PAY" : return payment(customer, openingBalance, commandLine.get(1), commandLine.get(2));
                             case "WITHDRAW" : return withdraw(customer, commandLine.get(1), commandLine.get(2));
+                            case "CLOSEACCOUNT" : return closeAccount(customer, commandLine.get(1));
                             // case "MOVE" : return move(customer, commandLine.get(1));
                             // case "DEPOSIT" : return deposit(customer, commandLine.get(1), commandLine.get(2));
                             }
@@ -68,7 +70,7 @@ public class NewBank {
                     return "Incorrect command or missing parameters. Please try again.";
                 }
                 
-		return "FAIL";
+		            return "FAIL";
 	}
 
 	private String showMyAccounts(CustomerID customer) {
@@ -125,4 +127,10 @@ public class NewBank {
         private String withdraw(CustomerID customer, String account, String amount) {
                 return customers.get(customer.getKey()).withdrawMoney(account, amount);
 	}
+        
+        /* Method to close an account */
+        private String closeAccount(CustomerID customer, String account) {
+        	return customers.get(customer.getKey()).accountEmpty(account);
+      
+        }
 }
