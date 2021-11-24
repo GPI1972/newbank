@@ -8,9 +8,6 @@ public class NewBank {
 	
 	private static final NewBank bank = new NewBank();
 	private HashMap<String,Customer> customers;
-	private String amountToPay;
-	private double amount;
-	private Account openingBalance;
 	
 	private NewBank() {
 		customers = new HashMap<>();
