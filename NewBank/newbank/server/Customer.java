@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class Customer {
 	
 	private ArrayList<Account> accounts;
-	private double balance;
 	
 	public Customer() {
 		accounts = new ArrayList<>();
@@ -43,9 +42,31 @@ public class Customer {
 	/*function to make payment to some person/company
 	 * possibly to add code to pay into specific accounts in the future 
 	 */
-	public void makePayment(double amount, Account openingBalance) {
-		balance = openingBalance.getBalance();
-		balance -= amount; 		
+	public String makePayment(String account, String name, String amount) {
+		double payment = Double.parseDouble(amount);
+		String message = "";
+		for(Account a : accounts) {
+            if (account.equalsIgnoreCase(a.getCustomer())){
+              if(a.removeMoney(payment)){
+            	  message = amount + " paid to " + name;
+              }
+              else {
+            	  message = "Insufficient funds";
+              }
+            }
+            else {
+            	message = "Account not found";
+            }          	  
+        }
+		 /*if name of payment receiver is the same as existing bank account name,
+		  *  the customer receives the payment (i.e. Pay Main John 100 - John gets 100)
+		  */
+		for(Account a : accounts) {
+			if (name == a.getAccountName()) {
+               	a.addMoney(payment);
+         }
+		}
+		return message;     	
 	}
         
         /*

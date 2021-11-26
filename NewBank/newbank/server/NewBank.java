@@ -53,9 +53,8 @@ public class NewBank {
                     if(customers.containsKey(customer.getKey())) {
                             switch(commandLine.get(0)) {
                             case "SHOWMYACCOUNTS" : return showMyAccounts(customer);
-                            case "NEWACCOUNT Main" : return newAccountMain(customer);
-                            case "NEWACCOUNT Savings" : return newAccountSavings(customer);
-                            case "PAY" : return payment(customer, openingBalance, commandLine.get(1), commandLine.get(2));
+                            case "NEWACCOUNT" : return newAccount(customer, commandLine.get(1));
+                            case "PAY" : return payment(customer, commandLine.get(1), commandLine.get(2), commandLine.get(3));
                             case "WITHDRAW" : return withdraw(customer, commandLine.get(1), commandLine.get(2));
                             case "CLOSEACCOUNT" : return closeAccount(customer, commandLine.get(1));
                             // case "MOVE" : return move(customer, commandLine.get(1));
@@ -74,13 +73,8 @@ public class NewBank {
 		return (customers.get(customer.getKey())).accountsToString();
 	}
 	
-	private String newAccountMain(CustomerID customer) {
-		(customers.get(customer.getKey())).addAccount(new Account("\n"+"Main", 0.0));
-		return "SUCCESS";
-	}
-	
-	private String newAccountSavings(CustomerID customer) {
-		(customers.get(customer.getKey())).addAccount(new Account("\n"+"Savings", 0.0));
+	private String newAccount(CustomerID customer, String newAccount) {
+		(customers.get(customer.getKey())).addAccount(new Account("\n"+ newAccount, 0.0));
 		return "SUCCESS";
 	}
 	
@@ -109,14 +103,10 @@ public class NewBank {
 	*
 	*/
 	
-	/* Method to pay custom person custom amount of money (i.e. "PAY Ruby 100").
-	 * Currently goes into infinite loop, more troubleshooting required to make it work. 
-	 */
-	private String payment(CustomerID customer, Account openingBalance, String name, String amountToPay) {
-		amount = Double.parseDouble(amountToPay);
-		(customers.get(customer.getKey())).makePayment(amount,openingBalance);
-		return "SUCCESS";	
-	}
+	// Method to pay custom person custom amount of money (i.e. "PAY Main Ruby 100").
+	private String payment(CustomerID customer, String account, String name, String amount) {
+		return (customers.get(customer.getKey())).makePayment(account,name,amount);
+	} 
         
         /*
           Method to withdraw an amount of money from the customer's account
