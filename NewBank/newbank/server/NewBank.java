@@ -74,7 +74,7 @@ public class NewBank {
 	}
 	
 	private String newAccount(CustomerID customer, String newAccount) {
-		(customers.get(customer.getKey())).addAccount(new Account("\n"+ newAccount, 0.0));
+		(customers.get(customer.getKey())).addAccount(new Account(newAccount, 0.0));
 		return "SUCCESS";
 	}
 	
