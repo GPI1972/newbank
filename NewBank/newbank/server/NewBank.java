@@ -61,8 +61,8 @@ public class NewBank {
                             case "PAY" : return payment(customer, openingBalance, commandLine.get(1), commandLine.get(2));
                             case "WITHDRAW" : return withdraw(customer, commandLine.get(1), commandLine.get(2));
                             case "CLOSEACCOUNT" : return closeAccount(customer, commandLine.get(1));
-                            // case "MOVE" : return move(customer, commandLine.get(1));
-                            // case "DEPOSIT" : return deposit(customer, commandLine.get(1), commandLine.get(2));
+                            case "DEPOSIT" : return deposit(customer, commandLine.get(1), commandLine.get(2));
+                            case "MOVE" : return move(customer, commandLine.get(1), commandLine.get(2), commandLine.get(3));
                             }
                     }
                 }
@@ -87,30 +87,16 @@ public class NewBank {
 		return "SUCCESS";
 	}
 	
-	/*
-	 * 
-	// move method that moves amount from one account to another
-	// *need to specify which account to move money from/to
-	// *need to work out how to access one particular account of a customer
-	private String move(CustomerID customer, String amountstr) {
-		double amount = Double.parseDouble(amountstr);
-		ArrayList<Account> accountsList = new ArrayList<>();
-		accountsList = (customers.get(customer.getKey())).getAccounts();
-		(customers.get(customer.getKey())).moveMoney(accountsList[0], accountsList[1], amount);
-		return "SUCCESS";
-	}
 	
 	// deposit method that deposits money in one account
-	// *need to specify which account to deposit money to
-	// *need to work out how to access one particular account of a customer
-	private String deposit(CustomerID customer, String accountstr, String amountstr) {
-		double amount = Double.parseDouble(amountstr);
-		ArrayList<Account> accountsList = new ArrayList<>();
-		accountsList = (customers.get(customer.getKey())).getAccounts();
-		accountList[0].addMoney(amount);
-		return "SUCCESS";	}
-	*
-	*/
+	private String deposit(CustomerID customer, String account, String amount) {
+		return customers.get(customer.getKey()).depositMoney(account, amount);
+	}
+	
+	// move method that moves amount from one account to another
+	private String move(CustomerID customer, String from, String to, String amount) {
+		return customers.get(customer.getKey()).moveMoney(from, to, amount);
+	}
 	
 	/* Method to pay custom person custom amount of money (i.e. "PAY Ruby 100").
 	 * Currently goes into infinite loop, more troubleshooting required to make it work. 
@@ -126,7 +112,7 @@ public class NewBank {
         */
         private String withdraw(CustomerID customer, String account, String amount) {
                 return customers.get(customer.getKey()).withdrawMoney(account, amount);
-	}
+        }
         
         /* Method to close an account */
         private String closeAccount(CustomerID customer, String account) {
