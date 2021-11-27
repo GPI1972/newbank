@@ -54,7 +54,7 @@ public class NewBank {
                             switch(commandLine.get(0)) {
                             case "SHOWMYACCOUNTS" : return showMyAccounts(customer);
                             case "NEWACCOUNT" : return newAccount(customer, commandLine.get(1));
-                            case "PAY" : return payment(customer, commandLine.get(1), commandLine.get(2), commandLine.get(3));
+                            case "PAY" : return payment(customer, commandLine.get(1), commandLine.get(2), commandLine.get(4));
                             case "WITHDRAW" : return withdraw(customer, commandLine.get(1), commandLine.get(2));
                             case "CLOSEACCOUNT" : return closeAccount(customer, commandLine.get(1));
                             // case "MOVE" : return move(customer, commandLine.get(1));
@@ -68,7 +68,8 @@ public class NewBank {
                 
 		            return "FAIL";
 	}
-
+		
+		
 	private String showMyAccounts(CustomerID customer) {
 		return (customers.get(customer.getKey())).accountsToString();
 	}
@@ -103,10 +104,23 @@ public class NewBank {
 	*
 	*/
 	
-	// Method to pay custom person custom amount of money (i.e. "PAY Main Ruby 100").
-	private String payment(CustomerID customer, String account, String name, String amount) {
-		return (customers.get(customer.getKey())).makePayment(account,name,amount);
-	} 
+	// Method to pay custom person custom amount of money (i.e. "PAY Ruby 100 FROM Main").
+	private String payment(CustomerID customer, String name, String amount, String account) {
+		double dbAmount = Double.parseDouble(amount);
+		String message = "";
+		Customer to_customer = customers.get(name);
+		if (to_customer == null) {
+			return message += "The customer " + name + " could not be found.";
+		} else {
+			message = (customers.get(customer.getKey())).makePayment(account, dbAmount);
+			if (message == "Success.") {
+				to_customer.getAccounts().get(0).addMoney(dbAmount);
+				return "Succesfully paid " + name + " from " + account;
+			} else {
+				return message;
+				}
+		}
+		} 
         
         /*
           Method to withdraw an amount of money from the customer's account

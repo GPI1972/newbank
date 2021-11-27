@@ -42,31 +42,20 @@ public class Customer {
 	/*function to make payment to some person/company
 	 * possibly to add code to pay into specific accounts in the future 
 	 */
-	public String makePayment(String account, String name, String amount) {
-		double payment = Double.parseDouble(amount);
-		String message = "";
+	public String makePayment(String account, double amount) {
+		String message = "Account not found";
 		for(Account a : accounts) {
             if (account.equalsIgnoreCase(a.getCustomer())){
-              if(a.removeMoney(payment)){
-            	  message = amount + " paid to " + name;
+              if(a.removeMoney(amount)){
+            	  message = "Success.";
               }
               else {
             	  message = "Insufficient funds";
               }
             }
-            else {
-            	message = "Account not found";
-            }          	  
         }
-		 /*if name of payment receiver is the same as existing bank account name,
-		  *  the customer receives the payment (i.e. Pay Main John 100 - John gets 100)
-		  */
-		for(Account a : accounts) {
-			if (name == a.getAccountName()) {
-               	a.addMoney(payment);
-         }
-		}
-		return message;     	
+		return message;
+		
 	}
         
         /*
