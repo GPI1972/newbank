@@ -91,4 +91,47 @@ public class Customer {
         		return message;
         		}
         
+        /*new password method*/
+        public String passwordCreate(String password) {
+        	String message = "";
+        	if (passwordCheck(password)) {
+        		message = "Password successfully updated.";
+        	}
+        	else 
+        		message = "Password update failed. Please ensure password is of at least 6 characters, with at least one uppercase, digit and special symbol.";
+        	
+        	return message;
+        }
+        
+        /*method to check if the entered password has all necessary requirements*/ 
+        public boolean passwordCheck(String password) {
+        	boolean acceptable = false;
+        	boolean hasLetter = false;
+            boolean hasDigit = false;
+            boolean hasSymbol = false;
+        	String symbols = "~`!@#$%^&*()-_=+\\|[{]};:'\",<.>/?";
+        	char ch;
+        	
+        	if (password.length() >= 6) {
+        		 for (int i = 0; i < password.length(); i++) {
+        			  ch = password.charAt(i);
+        			 if (Character.isUpperCase(ch)) {
+        				 hasLetter = true;
+        			 }	 	
+        			 else if (Character.isDigit(ch)) {
+        				 hasDigit = true;
+        			 }	 	
+        			 else if (symbols.contains(String.valueOf(ch))){
+        				 hasSymbol = true;
+        			 }        			
+        		 }
+        		 if (hasLetter && hasDigit && hasSymbol) {
+        			 acceptable = true;
+        		 }
+        	}
+        	else {
+        		acceptable = false;
+        	}
+        	return acceptable;        	
+        }
 }

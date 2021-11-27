@@ -61,6 +61,7 @@ public class NewBank {
                             case "PAY" : return payment(customer, openingBalance, commandLine.get(1), commandLine.get(2));
                             case "WITHDRAW" : return withdraw(customer, commandLine.get(1), commandLine.get(2));
                             case "CLOSEACCOUNT" : return closeAccount(customer, commandLine.get(1));
+                            case "NEWPASSWORD" : return newPassword(customer, commandLine.get(1));
                             // case "MOVE" : return move(customer, commandLine.get(1));
                             // case "DEPOSIT" : return deposit(customer, commandLine.get(1), commandLine.get(2));
                             }
@@ -132,5 +133,10 @@ public class NewBank {
         private String closeAccount(CustomerID customer, String account) {
         	return customers.get(customer.getKey()).accountEmpty(account);
       
+        }
+        
+        /*Method to create new password*/
+        private String newPassword(CustomerID customer, String password) {
+        	return (customers.get(customer.getKey())).passwordCreate(password);        	
         }
 }
