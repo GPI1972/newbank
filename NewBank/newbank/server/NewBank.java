@@ -8,9 +8,6 @@ public class NewBank {
 	
 	private static final NewBank bank = new NewBank();
 	private HashMap<String,Customer> customers;
-	private String amountToPay;
-	private double amount;
-	private Account openingBalance;
 	
 	private NewBank() {
 		customers = new HashMap<>();
@@ -56,14 +53,12 @@ public class NewBank {
                     if(customers.containsKey(customer.getKey())) {
                             switch(commandLine.get(0)) {
                             case "SHOWMYACCOUNTS" : return showMyAccounts(customer);
-                            case "NEWACCOUNT Main" : return newAccountMain(customer);
-                            case "NEWACCOUNT Savings" : return newAccountSavings(customer);
-                            case "PAY" : return payment(customer, openingBalance, commandLine.get(1), commandLine.get(2));
+                            case "NEWACCOUNT" : return newAccount(customer, commandLine.get(1));
+                            case "PAY" : return payment(customer, commandLine.get(1), commandLine.get(2), commandLine.get(4));
                             case "WITHDRAW" : return withdraw(customer, commandLine.get(1), commandLine.get(2));
                             case "CLOSEACCOUNT" : return closeAccount(customer, commandLine.get(1));
-                            case "NEWPASSWORD" : return newPassword(customer, commandLine.get(1));
-                            // case "MOVE" : return move(customer, commandLine.get(1));
-                            // case "DEPOSIT" : return deposit(customer, commandLine.get(1), commandLine.get(2));
+                            case "DEPOSIT" : return deposit(customer, commandLine.get(1), commandLine.get(2));
+                            case "MOVE" : return move(customer, commandLine.get(1), commandLine.get(2), commandLine.get(3));
                             }
                     }
                 }
@@ -73,61 +68,52 @@ public class NewBank {
                 
 		            return "FAIL";
 	}
-
+		
+		
 	private String showMyAccounts(CustomerID customer) {
 		return (customers.get(customer.getKey())).accountsToString();
 	}
 	
-	private String newAccountMain(CustomerID customer) {
-		(customers.get(customer.getKey())).addAccount(new Account("\n"+"Main", 0.0));
+	private String newAccount(CustomerID customer, String newAccount) {
+		(customers.get(customer.getKey())).addAccount(new Account(newAccount, 0.0));
 		return "SUCCESS";
 	}
 	
-	private String newAccountSavings(CustomerID customer) {
-		(customers.get(customer.getKey())).addAccount(new Account("\n"+"Savings", 0.0));
-		return "SUCCESS";
-	}
-	
-	/*
-	 * 
-	// move method that moves amount from one account to another
-	// *need to specify which account to move money from/to
-	// *need to work out how to access one particular account of a customer
-	private String move(CustomerID customer, String amountstr) {
-		double amount = Double.parseDouble(amountstr);
-		ArrayList<Account> accountsList = new ArrayList<>();
-		accountsList = (customers.get(customer.getKey())).getAccounts();
-		(customers.get(customer.getKey())).moveMoney(accountsList[0], accountsList[1], amount);
-		return "SUCCESS";
-	}
 	
 	// deposit method that deposits money in one account
-	// *need to specify which account to deposit money to
-	// *need to work out how to access one particular account of a customer
-	private String deposit(CustomerID customer, String accountstr, String amountstr) {
-		double amount = Double.parseDouble(amountstr);
-		ArrayList<Account> accountsList = new ArrayList<>();
-		accountsList = (customers.get(customer.getKey())).getAccounts();
-		accountList[0].addMoney(amount);
-		return "SUCCESS";	}
-	*
-	*/
-	
-	/* Method to pay custom person custom amount of money (i.e. "PAY Ruby 100").
-	 * Currently goes into infinite loop, more troubleshooting required to make it work. 
-	 */
-	private String payment(CustomerID customer, Account openingBalance, String name, String amountToPay) {
-		amount = Double.parseDouble(amountToPay);
-		(customers.get(customer.getKey())).makePayment(amount,openingBalance);
-		return "SUCCESS";	
+	private String deposit(CustomerID customer, String account, String amount) {
+		return customers.get(customer.getKey()).depositMoney(account, amount);
 	}
+	
+	// move method that moves amount from one account to another
+	private String move(CustomerID customer, String from, String to, String amount) {
+		return customers.get(customer.getKey()).moveMoney(from, to, amount);
+	}
+	
+	// Method to pay custom person custom amount of money (i.e. "PAY Ruby 100 FROM Main").
+	private String payment(CustomerID customer, String name, String amount, String account) {
+		double dbAmount = Double.parseDouble(amount);
+		String message = "";
+		Customer to_customer = customers.get(name);
+		if (to_customer == null) {
+			return message += "The customer " + name + " could not be found.";
+		} else {
+			message = (customers.get(customer.getKey())).makePayment(account, dbAmount);
+			if (message == "Success.") {
+				to_customer.getAccounts().get(0).addMoney(dbAmount);
+				return "Succesfully paid " + name + " from " + account;
+			} else {
+				return message;
+				}
+		}
+		} 
         
         /*
           Method to withdraw an amount of money from the customer's account
         */
         private String withdraw(CustomerID customer, String account, String amount) {
                 return customers.get(customer.getKey()).withdrawMoney(account, amount);
-	}
+        }
         
         /* Method to close an account */
         private String closeAccount(CustomerID customer, String account) {
