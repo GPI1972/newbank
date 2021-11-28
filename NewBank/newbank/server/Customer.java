@@ -27,16 +27,45 @@ public class Customer {
 		return accounts;
 	}
 	
+	// function to deposit money in a customer's account
+	public String depositMoney(String account, String amount){
+		double deposit = Double.parseDouble(amount);
+		String infoMessage = "";
+        
+        // iterate through all the customer's accounts
+        // if account found then deposit amount
+        for(Account a : accounts) {
+            if (account.equalsIgnoreCase(a.getCustomer())){
+            	a.addMoney(deposit);
+            	infoMessage = "Succesfully deposited " + deposit + " to account " + a.getCustomer();
+            	return infoMessage;
+            }
+        }
+        return "Account not found.";
+	}
+
+	
 	// function to move money between a customer's accounts
-	public boolean moveMoney(Account from, Account to, double amount) {
-		if (from.getBalance() >= amount){
-			from.removeMoney(amount);
-			to.addMoney(amount);
-			return true;
+	public String moveMoney(String from, String to, String amountstr) {
+		double amount = Double.parseDouble(amountstr);
+        String infoMessage = "";
+		for(Account a : accounts) {
+			for (Account b: accounts) {
+				if (from.equalsIgnoreCase(a.getCustomer())){
+	            	if (to.equalsIgnoreCase(b.getCustomer())){
+	            		if(a.removeMoney(amount)){
+	            			b.addMoney(amount);
+	            			infoMessage = "Successfully moved " + amount + " from account " + a.getCustomer() + " to account " + b.getCustomer();
+	            			return infoMessage;
+	            		}
+	            		else {
+	            			return "Insufficient funds. Please check account balance.";
+	            		}
+	            	}
+	            }
+			}
 		}
-		else{
-			return false;
-		}
+		return "Account not found.";
 	}
 	
 	/*function to make payment to some person/company
@@ -66,9 +95,9 @@ public class Customer {
                 String infoMessage = "";
                 
                 // iterate through all the customer's accounts
-                // if account found AND funds avaialble then withdraw amount
+                // if account found AND funds available then withdraw amount
                 for(Account a : accounts) {
-                    if (account.equalsIgnoreCase(a.getCustomer())){
+                	if (account.equalsIgnoreCase(a.getCustomer())){
                       if(a.removeMoney(withdrawal)){
                         infoMessage = "Successfully withdrawn " + amount + " from account " + a.getCustomer();
                       }
