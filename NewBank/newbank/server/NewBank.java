@@ -120,4 +120,9 @@ public class NewBank {
         	return customers.get(customer.getKey()).accountEmpty(account);
       
         }
+        
+        /*Method to create new password*/
+        private String newPassword(CustomerID customer, String password) {
+        	return (customers.get(customer.getKey())).passwordCreate(password);        	
+        }
 }
