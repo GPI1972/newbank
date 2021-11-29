@@ -59,6 +59,7 @@ public class NewBank {
                             case "CLOSEACCOUNT" : return closeAccount(customer, commandLine.get(1));
                             case "DEPOSIT" : return deposit(customer, commandLine.get(1), commandLine.get(2));
                             case "MOVE" : return move(customer, commandLine.get(1), commandLine.get(2), commandLine.get(3));
+                            case "NEWPASSWORD" : return newPassword(customer, commandLine.get(1));
                             }
                     }
                 }
