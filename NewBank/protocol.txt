@@ -10,12 +10,12 @@ NEWACCOUNT <Name>
 e.g. NEWACCOUNT Savings
 Returns SUCCESS or FAIL
 
-MOVE <Amount> <From> <To>
-e.g. MOVE 100 Main Savings 
+MOVE <From> <To> <Amount>
+e.g. MOVE Main Savings 100
 Returns SUCCESS or FAIL
 
-PAY <Person/Company> <Ammount>
-e.g. PAY John 100
+PAY <Person/Company> <Ammount> FROM <Account>
+e.g. PAY John 100 FROM Main
 Returns SUCCESS or FAIL
 
 DEPOSIT <Account> <Amount> 
