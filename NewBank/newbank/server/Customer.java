@@ -97,19 +97,18 @@ public class Customer {
                 // iterate through all the customer's accounts
                 // if account found AND funds available then withdraw amount
                 for(Account a : accounts) {
-                	if (account.equalsIgnoreCase(a.getCustomer())){
+                    if (account.equalsIgnoreCase(a.getCustomer())){
                       if(a.removeMoney(withdrawal)){
                         infoMessage = "Successfully withdrawn " + amount + " from account " + a.getCustomer();
+                        return infoMessage;
                       }
                       else{
                         infoMessage = "Insufficient funds. Please check account balance.";
+                        return infoMessage;
                       }
                     }
-                    else {
-                      infoMessage = "Account not found.";
-                    }
 		}
-                
+                infoMessage = "Account not found.";
                 return infoMessage;
         }
         
