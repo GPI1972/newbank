@@ -3,6 +3,7 @@ package newbank.server;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.io.*;
 
 public class NewBank {
 	
@@ -35,7 +36,29 @@ public class NewBank {
 	
 	public synchronized CustomerID checkLogInDetails(String userName, String password) {
 		if(customers.containsKey(userName)) {
-			return new CustomerID(userName);
+                    // code based on "Reading Text File into Java HashMap", Dec 2020
+                    // Available from: https://www.geeksforgeeks.org/reading-text-file-into-java-hashmap/?ref=rp
+                    // Accessed on 04/12/2021
+                    try{
+                      File passwordFile = new File("NewBank\\newbank\\server\\nbPassword.txt");
+                      BufferedReader passwordFileReader = new BufferedReader(new FileReader(passwordFile));
+                      String oneLine = null;
+                      HashMap<String,String> passwordHash = new HashMap<>();
+
+                      // write username & password to hashmap
+                      while ((oneLine = passwordFileReader.readLine()) != null){
+                        passwordHash.put(oneLine.split(",")[0], oneLine.split(",")[1]);
+                      }
+                      passwordFileReader.close();
+                      
+                      // check if password is correct
+                      if(password.equals(passwordHash.get(userName))){
+                        return new CustomerID(userName);
+                      }
+                    }
+                    catch(Exception e){
+                          e.printStackTrace();
+                    }
 		}
 		return null;
 	}
