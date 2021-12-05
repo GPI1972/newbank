@@ -33,7 +33,7 @@ public class NewBankClientHandler extends Thread{
 			CustomerID customer = bank.checkLogInDetails(userName, password);
 			// if the user is authenticated then get requests from the user and process them 
 			if(customer != null) {
-				out.println("Log In Successful. What do you want to do?");
+				out.println(printMenu(customer));
 				while(true) {
 					String request = in.readLine();
 					System.out.println("Request from " + customer.getKey());
@@ -57,5 +57,28 @@ public class NewBankClientHandler extends Thread{
 			}
 		}
 	}
+	
+	public String printMenu(CustomerID customer) {
+		String menu = " " + "_".repeat(83);
+		menu +=   "\n|                                                                                   |"
+				+ "\n| Welcome to NewBank, " + customer.getKey() + "!" + " ".repeat(85 - 24 - customer.getKey().length()) + "|";
+		menu +=   "\n|                                                                                   |"
+				+ "\n| What would you like to do?                                                        |"
+				+ "\n| Please insert the commands as instructed below:                                   |"
+				+ "\n|                                                                                   |"
+				+ "\n| SHOWMYACCOUNTS                                                                    |"
+				+ "\n| NEWACCOUNT <Name>                                                                 |"
+				+ "\n| MOVE <From> <To> <Amount>                                                         |"
+				+ "\n| PAY <Person/Company> <Ammount> FROM <Account>                                     |"
+				+ "\n| DEPOSIT <Account> <Amount>                                                        |"
+				+ "\n| WITHRDRAW <Account> <Amount>                                                      |"
+				+ "\n| CLOSEACCOUNT <Name>                                                               |"
+				+ "\n|                                                                                   |"
+				+ "\n| If you need more information on how to use the commands, please type INFO         |"
+				+ "\n|" + "_".repeat(83) + "|\n";
+		
+    	return menu;
+	}
+	
 
 }
