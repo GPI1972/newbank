@@ -83,6 +83,7 @@ public class NewBank {
                             case "DEPOSIT" : return deposit(customer, commandLine.get(1), commandLine.get(2));
                             case "MOVE" : return move(customer, commandLine.get(1), commandLine.get(2), commandLine.get(3));
                             case "NEWPASSWORD" : return newPassword(customer, commandLine.get(1));
+                            case "INFO": return printMenuInfo();
                             }
                     }
                 }
@@ -148,5 +149,26 @@ public class NewBank {
         /*Method to create new password*/
         private String newPassword(CustomerID customer, String password) {
         	return (customers.get(customer.getKey())).passwordCreate(password);        	
+        }
+        
+        private String printMenuInfo() {
+        	return "\n" + "_".repeat(85) 
+    				+ "\n\nSHOWMYACCOUNTS"
+    				+ "\nReturns a list of all the customers accounts along with their current balance"
+    				+ "\ne.g. Main: 1000.00 "
+    				+ "\nNEWACCOUNT <Name>"
+    				+ "\n\ne.g. NEWACCOUNT Savings"
+    				+ "\n\nMOVE <From> <To> <Amount>"
+    				+ "\n\ne.g. MOVE Main Savings 100"
+    				+ "\n\nPAY <Person/Company> <Ammount> FROM <Account>"
+    				+ "\ne.g. PAY John 100 FROM Main"
+    				+ "\n\nDEPOSIT <Account> <Amount>"
+    				+ "\ne.g. DEPOSIT Main 100 "
+    				+ "\n\nWITHRDRAW <Account> <Amount>"
+    				+ "\ne.g. WITHDRAW 100"
+    				+ "\n\nCLOSEACCOUNT <Name>"
+    				+ "\ne.g CLOSEACCOUNT Savings"
+    				+ "\n\nOBS: Use . to separate decimals"
+    				+ "\n" + "_".repeat(85) +"\n";
         }
 }
