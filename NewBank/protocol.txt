@@ -35,3 +35,35 @@ e.g CLOSEACCOUNT Savings
 Returns "Success. The account <Name> was closed."
 or
 "The account balance should be 0. Please withdraw/transfer from the account any existing credits or deposit/transfer to the account any existing debts."
+
+NEWPASSWORD <Password>
+e.g. NEWPASSWORD rubysP$wrd
+Returns "Password successfully updated."
+or
+"Password update failed. Please ensure password is of at least 6 characters, with at least one upper case, digit and special symbol."
+
+INFO
+Returns "SHOWMYACCOUNTS
+         Returns a list of all the customers accounts along with their current balance"
+         ne.g. Main: 1000.00
+
+        NEWACCOUNT <Name>
+        e.g. NEWACCOUNT Savings
+
+        MOVE <From> <To> <Amount>
+        e.g. MOVE Main Savings 100"
+
+        PAY <Person/Company> <Ammount> FROM <Account>
+        e.g. PAY John 100 FROM Main
+
+        DEPOSIT <Account> <Amount>
+        e.g. DEPOSIT Main 100
+
+        WITHRDRAW <Account> <Amount>
+        ne.g. WITHDRAW 100
+
+        CLOSEACCOUNT <Name>
+        e.g CLOSEACCOUNT Savings
+
+        OBS: Use . to separate decimals
+        _________________________________________________________________________
