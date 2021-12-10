@@ -40,7 +40,7 @@ public class NewBank {
                     // Available from: https://www.geeksforgeeks.org/reading-text-file-into-java-hashmap/?ref=rp
                     // Accessed on 04/12/2021
                     try{
-                      File passwordFile = new File("NewBank\\newbank\\server\\nbPassword.txt");
+                      File passwordFile = new File("NewBank/newbank/server/nbPassword.txt");
                       BufferedReader passwordFileReader = new BufferedReader(new FileReader(passwordFile));
                       String oneLine = null;
                       HashMap<String,String> passwordHash = new HashMap<>();
@@ -151,15 +151,19 @@ public class NewBank {
         	return (customers.get(customer.getKey())).passwordCreate(password);        	
         }
         
+        
         private String printMenuInfo() {
         	return "\n" + "_".repeat(85) 
     				+ "\n\nSHOWMYACCOUNTS"
     				+ "\nReturns a list of all the customers accounts along with their current balance"
     				+ "\ne.g. Main: 1000.00 "
-    				+ "\nNEWACCOUNT <Name>"
-    				+ "\n\ne.g. NEWACCOUNT Savings"
+    				+ "\n\nNEWACCOUNT <Name>"
+    				+ "\ne.g. NEWACCOUNT Savings"
+    				+ "\n\nNEWPASSWORD <Password>"
+    				+ "\nPasswords must contain at least 6 characters, with at least one uppercase, digit and special symbol."
+    				+ "\ne.g. NEWPASSWORD P$wrd123"
     				+ "\n\nMOVE <From> <To> <Amount>"
-    				+ "\n\ne.g. MOVE Main Savings 100"
+    				+ "\ne.g. MOVE Main Savings 100"
     				+ "\n\nPAY <Person/Company> <Ammount> FROM <Account>"
     				+ "\ne.g. PAY John 100 FROM Main"
     				+ "\n\nDEPOSIT <Account> <Amount>"

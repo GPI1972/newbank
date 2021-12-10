@@ -141,6 +141,7 @@ public class Customer {
         	return message;
         }
         
+        
         /*method to check if the entered password has all necessary requirements*/ 
         public boolean passwordCheck(String password) {
         	boolean acceptable = false;
