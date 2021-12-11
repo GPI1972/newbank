@@ -1,10 +1,16 @@
 package newbank.server;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Customer {
 	
 	private ArrayList<Account> accounts;
+	private String password;
 	
 	public Customer() {
 		accounts = new ArrayList<>();
@@ -25,6 +31,11 @@ public class Customer {
 	//function to get accounts array
 	public ArrayList<Account> getAccounts() {
 		return accounts;
+	}
+	
+	//function to get Customer's password
+	public String getPassword() {
+		return password;
 	}
 	
 	// function to deposit money in a customer's account
@@ -130,14 +141,64 @@ public class Customer {
         		}
         
         /*new password method*/
-        public String passwordCreate(String password) {
+        public String passwordCreate(String newpassword) {
         	String message = "";
-        	if (passwordCheck(password)) {
+        	if (passwordCheck(newpassword)) {
         		message = "Password successfully updated.";
         	}
         	else 
         		message = "Password update failed. Please ensure password is of at least 6 characters, with at least one uppercase, digit and special symbol.";
         	
+        	return message;
+        }
+        
+        /* change password method*/
+        public String passwordChange(String oldpassword, String newpassword) {
+        	String message = "";
+        	if (passwordCheck(newpassword)) {
+        		File passwordFile = new File("NewBank/newbank/server/nbPassword.txt");
+                String oldContent = "";
+                BufferedReader reader = null;
+                FileWriter writer = null;
+                try
+                {
+                    
+                	reader = new BufferedReader(new FileReader(passwordFile));
+                    //Reading all the lines of input text file into oldContent
+                    String line = reader.readLine();
+                    while (line != null) 
+                    {
+                        oldContent = oldContent + line + System.lineSeparator();
+                        line = reader.readLine();
+                    }
+                    //Replacing oldString with newString in the oldContent
+                    String newContent = oldContent.replaceAll(oldpassword, newpassword);
+                    //Rewriting the input text file with newContent
+                    writer = new FileWriter(passwordFile);
+                    writer.write(newContent);
+                    message = "Password successfully updated.";
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+                finally
+                {
+                    try
+                    {
+                        //Closing the resources
+                        reader.close();
+                        writer.close();
+                    } 
+                    catch (IOException e) 
+                    {
+                        e.printStackTrace();
+                    }
+                }
+        	}
+        	else {
+        		message = "Password change failed. Please ensure new password is of at least 6 characters, with at least one uppercase, digit and special symbol.";
+        	}
         	return message;
         }
         
