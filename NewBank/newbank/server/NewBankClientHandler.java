@@ -74,6 +74,7 @@ public class NewBankClientHandler extends Thread{
 				+ "\n| DEPOSIT <Account> <Amount>                                                        |"
 				+ "\n| WITHRDRAW <Account> <Amount>                                                      |"
 				+ "\n| CLOSEACCOUNT <Name>                                                               |"
+				+ "\n| DIRECTDEBIT <Account> <Person/Company> <MonthlyDebitAmount> <AmountOfMonths>      |"
 				+ "\n|                                                                                   |"
 				+ "\n| If you need more information on how to use the commands, please type INFO         |"
 				+ "\n|" + "_".repeat(83) + "|\n";
