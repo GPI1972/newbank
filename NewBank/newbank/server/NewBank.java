@@ -84,6 +84,7 @@ public class NewBank {
                             case "MOVE" : return move(customer, commandLine.get(1), commandLine.get(2), commandLine.get(3));
                             case "NEWPASSWORD" : return newPassword(customer, commandLine.get(1));
                             case "CHANGEPASSWORD": return changePassword(customer, commandLine.get(1), commandLine.get(2));
+                            case "DIRECTDEBIT" : return directDebit(customer, commandLine.get(1), commandLine.get(2), commandLine.get(3), commandLine.get(4));
                             case "INFO": return printMenuInfo();
                             }
                     }
@@ -156,6 +157,12 @@ public class NewBank {
         private String changePassword(CustomerID customer, String oldpassword, String newpassword) {
         	return (customers.get(customer.getKey())).passwordChange(oldpassword, newpassword);
         }
+
+        /*Method to set up direct debit*/
+        private String directDebit(CustomerID customer, String account, String name, String amount, String months) {
+        	return (customers.get(customer.getKey())).debitSetUp(account, name, amount, months);
+        }
+        
         
         private String printMenuInfo() {
         	return "\n" + "_".repeat(85) 
@@ -180,6 +187,8 @@ public class NewBank {
     				+ "\ne.g. WITHDRAW 100"
     				+ "\n\nCLOSEACCOUNT <Name>"
     				+ "\ne.g CLOSEACCOUNT Savings"
+    				+ "\n\nDIRECTDEBIT <Account> <Person/Company> <MonthlyDebitAmount> <AmountOfMonths>"
+    				+ "\ne.g DIRECTDEBIT Main BritishGas 10 5"    				
     				+ "\n\nOBS: Use . to separate decimals"
     				+ "\n" + "_".repeat(85) +"\n";
         }

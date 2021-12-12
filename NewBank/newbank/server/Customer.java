@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class Customer {
 	
@@ -236,5 +237,38 @@ public class Customer {
         		acceptable = false;
         	}
         	return acceptable;        	
+        }
+        
+        /*Method to set up direct debit, it checks the account chosen and removes ('reserves') necessary amount 
+         * to be paid all together for the number of months selected, i.e 5 moneys over 10 months - 50 moneys minus in the account.
+         * Method start direct debit count from next month, i.e. set up in December, starts from January*/
+        public String debitSetUp(String account, String name, String amount, String months) {
+        	double debitAmount = Double.parseDouble(amount);
+        	int monthAmount = Integer.parseInt(months);
+    		String message = "";
+    		
+    		Calendar calendar = Calendar.getInstance();
+    		calendar.add(Calendar.MONTH, monthAmount);
+    		int deadline = calendar.get(Calendar.MONTH);
+    		String[] month = new String[] {"January", "February", "March", "April", "May", "June", "July", "August","September", "October", "November", "December" };
+    	    
+    	    String deadlineInText = month[calendar.get(Calendar.MONTH)];
+    	    String year = Integer.toString(calendar.get(Calendar.YEAR));
+    		
+    		for(Account a : accounts) {
+                if (account.equalsIgnoreCase(a.getCustomer())){
+                  if(a.getBalance()>= debitAmount){
+                	  for (int i=0; i<=deadline; i++){
+                		  a.removeMoney(debitAmount); 
+                	      }
+                	  message = "Direct debit set up for " + name + " until " + deadlineInText + " " + year + ".";
+                  }
+                  else {
+                	  message = "Insufficient funds.";
+                  }
+                }
+    		}
+        	return message;
+        	
         }
 }
