@@ -7,22 +7,27 @@ Returns a list of all the customers accounts along with their current balance
 e.g. Main: 1000.0 
 
 NEWACCOUNT <Name>
+This command creates a new account with a name specified by the customer.
 e.g. NEWACCOUNT Savings
 Returns SUCCESS or FAIL
 
 MOVE <From> <To> <Amount>
+With this command, customers can move money among their accounts. 
 e.g. MOVE Main Savings 100
 Returns SUCCESS or FAIL
 
 PAY <Person/Company> <Ammount> FROM <Account>
+Customers can pay other customers from the NewBank.
 e.g. PAY John 100 FROM Main
 Returns SUCCESS or FAIL
 
 DEPOSIT <Account> <Amount> 
+This command emulates the deposit function.
 e.g. DEPOSIT Main 100 
 Returns SUCCESS or FAIL
 
 WITHRDRAW <Account> <Amount>
+This command emulates the withdraw function of ATMs, as long as the account has sufficient funds.
 e.g. WITHDRAW 100
 Returns "Successfully withdrawn <Amount> from account <Account>;
 or 
@@ -31,16 +36,32 @@ or
 "Account not found."
 
 CLOSEACCOUNT <Name>
+Customers can close an account as long as its balance is 0.  
 e.g CLOSEACCOUNT Savings
 Returns "Success. The account <Name> was closed."
 or
 "The account balance should be 0. Please withdraw/transfer from the account any existing credits or deposit/transfer to the account any existing debts."
 
 NEWPASSWORD <Password>
+Customers can set up a password, when not already existing.
 e.g. NEWPASSWORD rubysP$wrd
 Returns "Password successfully updated."
 or
 "Password update failed. Please ensure password is of at least 6 characters, with at least one upper case, digit and special symbol."
+
+CHANGEPASSWORD <Old Password> <New Password>
+Customers can change their password. The currently used password is required.
+e.g. CHANGEPASSWORD oldP$wrd123 newP$wrd123
+Returns "Password successfully updated."
+or 
+"Password change failed. Please ensure new password is of at least 6 characters, with at least one uppercase, digit and special symbol."
+
+DIRECTDEBIT <Account> <Person/Company> <MonthlyDebitAmount> <AmountOfMonths>
+With this command, customers can set up a direct debit from a specific account for a pre-defined number of months starting from the following month where the direct debt was set up.
+e.g. DIRECTDEBIT Main BritishGas 10 5
+Returns "Direct debit set up for BritishGas until May 2022."
+or
+"Insufficient funds."
 
 INFO
 Returns "SHOWMYACCOUNTS
@@ -64,6 +85,15 @@ Returns "SHOWMYACCOUNTS
 
         CLOSEACCOUNT <Name>
         e.g CLOSEACCOUNT Savings
+        
+        NEWPASSWORD <Password>
+        e.g. NEWPASSWORD P$wrd123
+        
+        CHANGEPASSWORD <OldPassword> <NewPassword>
+        e.g. CHANGEPASSWORD oldP$wrd123 newP$wrd123
+        
+        DIRECTDEBIT <Account> <Person/Company> <MonthlyDebitAmount> <AmountOfMonths>
+        e.g DIRECTDEBIT Main BritishGas 10 5
 
         OBS: Use . to separate decimals
         _________________________________________________________________________
