@@ -69,6 +69,7 @@ public class NewBankClientHandler extends Thread{
 				+ "\n| SHOWMYACCOUNTS                                                                    |"
 				+ "\n| NEWACCOUNT <Name>                                                                 |"
 				+ "\n| NEWPASSWORD <Name>                                                                |"
+				+ "\n| CHANGEPASSWORD <OldPassword> <NewPassword>                                        |"
 				+ "\n| MOVE <From> <To> <Amount>                                                         |"
 				+ "\n| PAY <Person/Company> <Ammount> FROM <Account>                                     |"
 				+ "\n| DEPOSIT <Account> <Amount>                                                        |"

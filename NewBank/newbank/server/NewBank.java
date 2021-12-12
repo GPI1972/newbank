@@ -47,7 +47,7 @@ public class NewBank {
 
                       // write username & password to hashmap
                       while ((oneLine = passwordFileReader.readLine()) != null){
-                        passwordHash.put(oneLine.split(",")[0], oneLine.split(",")[1]);
+                        passwordHash.put(oneLine.split(" ")[0], oneLine.split(" ")[1]);
                       }
                       passwordFileReader.close();
                       
@@ -83,6 +83,7 @@ public class NewBank {
                             case "DEPOSIT" : return deposit(customer, commandLine.get(1), commandLine.get(2));
                             case "MOVE" : return move(customer, commandLine.get(1), commandLine.get(2), commandLine.get(3));
                             case "NEWPASSWORD" : return newPassword(customer, commandLine.get(1));
+                            case "CHANGEPASSWORD": return changePassword(customer, commandLine.get(1), commandLine.get(2));
                             case "DIRECTDEBIT" : return directDebit(customer, commandLine.get(1), commandLine.get(2), commandLine.get(3), commandLine.get(4));
                             case "INFO": return printMenuInfo();
                             }
@@ -152,6 +153,11 @@ public class NewBank {
         	return (customers.get(customer.getKey())).passwordCreate(password);        	
         }
         
+        /*Method to change password*/
+        private String changePassword(CustomerID customer, String oldpassword, String newpassword) {
+        	return (customers.get(customer.getKey())).passwordChange(oldpassword, newpassword);
+        }
+
         /*Method to set up direct debit*/
         private String directDebit(CustomerID customer, String account, String name, String amount, String months) {
         	return (customers.get(customer.getKey())).debitSetUp(account, name, amount, months);
@@ -166,10 +172,13 @@ public class NewBank {
     				+ "\n\nNEWACCOUNT <Name>"
     				+ "\ne.g. NEWACCOUNT Savings"
     				+ "\n\nNEWPASSWORD <Password>"
-    				+ "\nPasswords must contain at least 6 characters, with at least one uppercase, digit and special symbol."
+    				+ "\nPassword must contain at least 6 characters, with at least one uppercase, digit and special symbol."
     				+ "\ne.g. NEWPASSWORD P$wrd123"
-    				+ "\n\nMOVE <From> <To> <Amount>"
+    				+ "\n\nCHANGEPASSWORD <OldPassword> <NewPassword>"
+    				+ "\nPassword must contain at least 6 characters, with at least one uppercase, digit and special symbol."
+    				+ "\ne.g. CHANGEPASSWORD oldP$wrd123 newP$wrd123"
     				+ "\ne.g. MOVE Main Savings 100"
+    				+ "\n\nMOVE <From> <To> <Amount>"
     				+ "\n\nPAY <Person/Company> <Ammount> FROM <Account>"
     				+ "\ne.g. PAY John 100 FROM Main"
     				+ "\n\nDEPOSIT <Account> <Amount>"
