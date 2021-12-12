@@ -152,28 +152,32 @@ public class Customer {
         	return message;
         }
         
-        /* change password method*/
+        /* change password method
+         * currently does not alter txt file with updated password--needs debugging 
+         * this method would also change any other customer's password if they had the same old password, so it is not secure */
         public String passwordChange(String oldpassword, String newpassword) {
         	String message = "";
         	if (passwordCheck(newpassword)) {
+        		// create new file type, using path to password text file
         		File passwordFile = new File("NewBank/newbank/server/nbPassword.txt");
                 String oldContent = "";
                 BufferedReader reader = null;
                 FileWriter writer = null;
                 try
                 {
-                    
+                    // create new reader to read current lines from file
                 	reader = new BufferedReader(new FileReader(passwordFile));
-                    //Reading all the lines of input text file into oldContent
+                    //Reading all the lines of input text file into the oldContent string
                     String line = reader.readLine();
                     while (line != null) 
                     {
-                        oldContent = oldContent + line + System.lineSeparator();
+                        // append each line from file to oldContent string
+                    	oldContent = oldContent + line + System.lineSeparator();
                         line = reader.readLine();
                     }
-                    //Replacing oldString with newString in the oldContent
+                    // use replaceAll() method to replace occurrences of the old password with the new password, save in new string
                     String newContent = oldContent.replaceAll(oldpassword, newpassword);
-                    //Rewriting the input text file with newContent
+                    //Rewrite the input text file with this new string
                     writer = new FileWriter(passwordFile);
                     writer.write(newContent);
                     message = "Password successfully updated.";
@@ -186,7 +190,6 @@ public class Customer {
                 {
                     try
                     {
-                        //Closing the resources
                         reader.close();
                         writer.close();
                     } 
